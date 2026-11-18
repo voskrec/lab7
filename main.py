@@ -1,23 +1,25 @@
-# Данные: (Имя, Возраст, Балл)
-students = [
-    ("Иван", 25, 4.5),
-    ("Мария", 22, 4.85),
-    ("Пётр", 30, 4.2),
-    ("Анна", 20, 4.95),
-]
+def count_letters(text: str) -> tuple:
+    # Создаем множества (set) для быстрого поиска.
+    # Используем русские и английские буквы в нижнем регистре.
+    vowels = set("аеёиоуыэюяaeiouy")
+    consonants = set("бвгджзйклмнпрстфхцчшщbcdfghjklmnpqrstvwxz")
+    
+    # Счетчики
+    vowel = 0
+    consonant= 0
+    
+    # Проходим по каждому символу в тексте
+    for char in text.lower():  # .lower() приводит всё к нижнему регистру
+        if char in vowels:
+            vowel_count += 1
+        elif char in consonants:
+            consonant_count += 1
+            
+    return vowel, consonant
 
-# Заголовок: <10 — влево (ширина 10), >8 — вправо (ширина 8)
-print(f"{'Имя':<10} {'Возраст':>8} {'Балл':>8}")
-print("-" * 28)
+# --- Использование ---
+user_text = input("Введите текст: ")
+vowels, consonants = count_letters(user_text)
 
-# Данные: :.2f округляет число до 2 знаков после запятой
-for name, age, gpa in students:
-    print(f"{name:<10} {age:>8} {gpa:>8.2f}")
-
-print("-" * 28)
-
-# Считаем средний балл (третий элемент кортежа)
-avg_gpa = sum(s[2] for s in students) / len(students)
-
-# Выводим итог, выравнивая текст под колонкой с именами
-print(f"{'Средний балл':<10} {'':>8} {avg_gpa:>8.2f}")
+print(f"Гласных: {vowels}")
+print(f"Согласных: {consonants}")
