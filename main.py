@@ -1,37 +1,23 @@
-import re
-
-def validate_email(email: str) -> bool:
-    """Проверяет корректность email."""
-    # ^[\w.-]+@[\w.-]+\.\w+$ — имя_пользователя@домен.зона
-    pattern = r'^[\w.-]+@[\w.-]+\.\w+$'
-    return bool(re.match(pattern, email))
-
-
-def validate_phone(phone: str) -> bool:
-    """Проверяет корректность российского телефона."""
-    # Допускает формат: +7 (999) 123-45-67 (пробелы, скобки и дефисы необязательны)
-    pattern = r'^\+?7[\s-]?\(?\d{3}\)?[\s-]?\d{3}[\s-]?\d{2}[\s-]?\d{2}$'
-    return bool(re.match(pattern, phone))
-
-
-def validate_url(url: str) -> bool:
-    """Проверяет корректность URL."""
-    # Строка должна начинаться с http:// или https:// и содержать домен
-    pattern = r'^https?:\/\/[\w.-]+[a-z]{2,}(\/[\w.-]*)*$'
-    return bool(re.match(pattern, url))
-
-
-# --- Тестирование ---
-# Кортежи: (тип, проверяемое значение, функция-валидатор)
-tests = [
-    ("email", "ivan@example.com", validate_email),
-    ("email", "invalid@", validate_email),
-    ("phone", "+7 (999) 123-45-67", validate_phone),
-    ("url", "https://example.com", validate_url),
-    ("url", "not-a-url", validate_url),
+# Данные: (Имя, Возраст, Балл)
+students = [
+    ("Иван", 25, 4.5),
+    ("Мария", 22, 4.85),
+    ("Пётр", 30, 4.2),
+    ("Анна", 20, 4.95),
 ]
 
-for type_, value, validator in tests:
-    # Выводим ✓ при успехе и ✗ при ошибке
-    result = "✓" if validator(value) else "✗"
-    print(f"{result} {type_}: {value}")
+# Заголовок: <10 — влево (ширина 10), >8 — вправо (ширина 8)
+print(f"{'Имя':<10} {'Возраст':>8} {'Балл':>8}")
+print("-" * 28)
+
+# Данные: :.2f округляет число до 2 знаков после запятой
+for name, age, gpa in students:
+    print(f"{name:<10} {age:>8} {gpa:>8.2f}")
+
+print("-" * 28)
+
+# Считаем средний балл (третий элемент кортежа)
+avg_gpa = sum(s[2] for s in students) / len(students)
+
+# Выводим итог, выравнивая текст под колонкой с именами
+print(f"{'Средний балл':<10} {'':>8} {avg_gpa:>8.2f}")
