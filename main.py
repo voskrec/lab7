@@ -1,6 +1,11 @@
-import re
-def count(text:str)->int:
-    words = re.findall(r'\b\w+\b',text)
-    return len(words)
+#делаем функцию которая убирает лишние знаки
+#так же проверяет на панлиндром
+def palindrome(text):
+    text=text.lower().replace(" ","").replace(",","").replace("?","").replace("!","")
+    return text==text[::-1]
 text=input("введите текст:")
-print(f'колличесвто слов:{count(text)}')
+#проверяем является ли введённый текст палиндромом
+if palindrome(text):
+    print("палиндром")
+else:
+    print("не палиндром")
